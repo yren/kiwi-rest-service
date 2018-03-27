@@ -5,3 +5,8 @@
 ```
 gradle init --type java-library
 ```
+
+## gradle generate idea project
+```
+gradle idea
+```
