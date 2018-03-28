@@ -1,4 +1,4 @@
-package me.lokvin.demo;
+package me.lokvin.demo.bean;
 
 public class Greeting {
     private long id;
