@@ -4,6 +4,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.0.RELEASE")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
@@ -12,10 +13,21 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'docker'
 
 bootJar {
     baseName = 'kiwi-rest-service'
     version =  '0.1.0'
+}
+
+task copyJar(type: Copy, dependsOn: bootJar) {
+    from 'build/libs'
+    into 'build/docker'
+}
+
+task buildDocker(type: Docker, dependsOn: copyJar) {
+    applicationName = project.name
+    dockerfile = file('Dockerfile')
 }
 
 repositories {
